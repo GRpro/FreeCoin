@@ -1,11 +1,13 @@
 package com.project.controller;
 
+import com.project.businesslogic.Complaint;
 import com.project.businesslogic.Job;
 import com.project.businesslogic.user.CustomerUser;
 import com.project.businesslogic.user.DeveloperUser;
 import com.project.businesslogic.user.User;
 import com.project.dao.DeveloperUserDAO;
 import com.project.dao.UserDAO;
+import com.project.services.ComplaintService;
 import com.project.services.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,7 @@ public class JobController {
     private JobService jobService;
     private DeveloperUserDAO developerUserDAO;
     private UserDAO userDAO;
+    private ComplaintService complaintService;
 
     @Autowired
     public void setJobService(JobService jobService) {
@@ -39,6 +42,11 @@ public class JobController {
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
+    }
+
+    @Autowired
+    public void setComplaintService(ComplaintService complaintService) {
+        this.complaintService = complaintService;
     }
 
     @Transactional
@@ -73,6 +81,10 @@ public class JobController {
                                 System.out.println(appl);
                             }
                         }
+
+                        List<Complaint> complaints = complaintService.getComplaintsOnJob(job.getId());
+                        modelAndView.addObject("isComplainedByThisUser", complaints.size() != 0);
+
                         break;
                     }
                     case DEVELOPER: {
@@ -82,6 +94,10 @@ public class JobController {
                         CustomerUser customerUser = job.getCustomerUser();
                         System.out.println(customerUser.getSnf());
                         modelAndView.addObject("customerUser", customerUser);
+
+                        List<Complaint> complaints = complaintService.getComplaintsOnJob(job.getId());
+                        modelAndView.addObject("isComplainedByThisUser", complaints.size() != 0);
+
                         break;
                     }
                 }

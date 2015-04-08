@@ -1,8 +1,11 @@
 package com.project.businesslogic;
 
+import com.project.businesslogic.meta.ComplaintState;
+import com.project.businesslogic.user.AdminUser;
 import com.project.businesslogic.user.User;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "complaint")
@@ -16,10 +19,21 @@ public class Complaint {
     private User user;
     
     private String text;
+
+    @Enumerated(EnumType.STRING)
+    private ComplaintState complaintState;
+
+    /**
+     * Admin who responsible for solving this complaint
+     */
+    @ManyToOne
+    private AdminUser adminUser;
     
     @ManyToOne
     private Job problemJob;
 
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     public long getId() {
         return id;
@@ -51,5 +65,29 @@ public class Complaint {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public AdminUser getAdminUser() {
+        return adminUser;
+    }
+
+    public void setAdminUser(AdminUser adminUser) {
+        this.adminUser = adminUser;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public ComplaintState getComplaintState() {
+        return complaintState;
+    }
+
+    public void setComplaintState(ComplaintState complaintState) {
+        this.complaintState = complaintState;
     }
 }

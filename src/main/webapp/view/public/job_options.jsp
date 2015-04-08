@@ -64,8 +64,7 @@
                         }
                         function addApplicant() {
                             alert("click")
-                            applyForJobRequest('<sec:authentication property="principal.id" />',
-                                    ${job.id});
+                            applyForJobRequest('<sec:authentication property="principal.id" />', ${job.id});
                             location.reload();
                         }
                     </script>
@@ -79,6 +78,8 @@
                         </form>
                     </div>
                 </c:if>
+
+
             </c:if>
             <c:if test="${isAdmin}">
                 <%--some logic for admin--%>
@@ -145,6 +146,10 @@
                         </div>
                     </c:if>
                 </c:if>
+
+
+
+
             </c:if>
         </div>
         <div class="central-bar" style="margin-left: 15px">
@@ -168,6 +173,16 @@
                     <b>Agreement: </b>${job.agreement}
                 </div>
             </div>
+
+            <c:if test="${isCustomer || isDeveloper}">
+
+                <form id="set-complaint-form" action="${root}/job/complaint" method="post"  style="display: inline-block">
+                    <input class="button_example" value="Set complaint" type="submit" style="margin-top: 10px; margin-left: 5px"><br>
+                    <p><input type="text" name="complaintText" rows="3" cols="40"></p>
+                    <input type="hidden" name="jobId" value="${job.id}">
+                    <input type="hidden" name="userId" value="<sec:authentication property="principal.id"/>">
+                </form>
+            </c:if>
         </div>
         <div class="right-bar" align="center">
 

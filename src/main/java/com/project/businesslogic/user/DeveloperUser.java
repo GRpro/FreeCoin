@@ -12,6 +12,15 @@ public class DeveloperUser extends User {
     @Lob
     private String skills;
 
+    private double rating;
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 
     public String getSkills() {
         return skills;

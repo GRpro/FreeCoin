@@ -32,8 +32,6 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
 
-    private double rating;
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Image image;
 
@@ -59,14 +57,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
     }
 
     public Date getBirthday() {
@@ -110,7 +100,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", snf='" + snf + '\'' +
                 ", birthday=" + birthday +
-                ", rating=" + rating +
                 ", image='" + image + '\'' +
                 '}';
     }

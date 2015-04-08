@@ -16,9 +16,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Error_404 on 06.04.2015.
- */
 @Controller
 @RequestMapping("/messages")
 public class DialogMessagesController {

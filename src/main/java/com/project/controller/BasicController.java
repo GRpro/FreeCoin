@@ -46,7 +46,7 @@ public class BasicController {
         }
         if (hasRole("ROLE_ADMIN")) {
             System.out.println("Has role ROLE_ADMIN");
-            modelAndView = new ModelAndView("private/admin/profile");
+            modelAndView = new ModelAndView("redirect:/usr/admin/profile");
         }
         return modelAndView;
     }
