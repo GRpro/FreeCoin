@@ -1,6 +1,7 @@
 package com.project.dao;
 
 import com.project.businesslogic.Complaint;
+import com.project.businesslogic.meta.ComplaintState;
 import com.project.businesslogic.user.AdminUser;
 import com.project.security.CustomUserDetails;
 import org.hibernate.Criteria;
@@ -56,27 +57,34 @@ public class AdminUserDAO implements CRUD<AdminUser> {
     }
 
     /**
-     * This method returns AdminUser with least number ACTIVE and SOLVED complaints
+     * This method returns AdminUser with least number ACTIVE complaints
      * @return AdminUser
      */
     @Transactional(readOnly = true)
     public AdminUser getFreeAdmin() {
         Session session = sessionFactory.getCurrentSession();
-//        Criteria criteria =
         List<AdminUser> adminUsers = session.createCriteria(AdminUser.class).list();
-        System.out.println("iterator size: " + adminUsers.size());
             AdminUser adminUser = null;
             long min = Integer.MAX_VALUE;
-
+            long temp;
             for (AdminUser admin : adminUsers) {
-                System.out.println("size: " + admin.getComplaints().size());
-                if (admin.getComplaints().size() < min) {
-                    min = admin.getComplaints().size();
+                if ((temp = numOfActiveComplaints(admin.getComplaints())) < min) {
+                    min = temp;
                     adminUser = admin;
                 }
             }
             return adminUser;
     }
+
+    private long numOfActiveComplaints(List<Complaint> complaints) {
+        int num = 0;
+        for (Complaint c : complaints ) {
+            if (c.getComplaintState().equals(ComplaintState.ACTIVE))
+                num++;
+        }
+        return num;
+    }
+
 
     @Transactional(readOnly = true)
     public AdminUser getByEmail(String email) {
