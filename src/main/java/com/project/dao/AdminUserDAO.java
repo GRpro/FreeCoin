@@ -56,15 +56,14 @@ public class AdminUserDAO implements CRUD<AdminUser> {
     }
 
     /**
-     * This method returns AdminUser with least number ACTIVE complaints
+     * This method returns AdminUser with least number ACTIVE and SOLVED complaints
      * @return AdminUser
      */
     @Transactional(readOnly = true)
     public AdminUser getFreeAdmin() {
         Session session = sessionFactory.getCurrentSession();
 //        Criteria criteria =
-        List<AdminUser> adminUsers = session.createCriteria(AdminUser.class)
-                .setFetchMode("complaints", FetchMode.JOIN).list();
+        List<AdminUser> adminUsers = session.createCriteria(AdminUser.class).list();
         System.out.println("iterator size: " + adminUsers.size());
             AdminUser adminUser = null;
             long min = Integer.MAX_VALUE;

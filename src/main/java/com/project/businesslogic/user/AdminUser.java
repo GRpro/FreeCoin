@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "admin_user")
 public class AdminUser extends User {
 
-    @OneToMany(mappedBy = "problemJob", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "adminUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Complaint> complaints = new ArrayList<>();
 
     public List<Complaint> getComplaints() {

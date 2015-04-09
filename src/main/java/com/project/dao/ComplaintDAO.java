@@ -43,9 +43,9 @@ public class ComplaintDAO implements CRUD<Complaint> {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Complaint.class, "c");
         criteria.createAlias("c.adminUser", "a");
-        criteria.add(Restrictions.eq("a.id", id));
-        criteria.add(Restrictions.eq("c.complaintState", state));
+        criteria.add(Restrictions.and(Restrictions.eq("a.id", id), Restrictions.eq("c.complaintState", state)));
         criteria.addOrder(Order.desc("c.date"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
 

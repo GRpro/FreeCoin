@@ -90,4 +90,17 @@ public class Complaint {
     public void setComplaintState(ComplaintState complaintState) {
         this.complaintState = complaintState;
     }
+
+    @Override
+    public String toString() {
+        return "Complaint{" +
+                "id=" + id +
+                ", user=" + user +
+                ", text='" + text + '\'' +
+                ", complaintState=" + complaintState +
+                ", adminUser=" + adminUser +
+                ", problemJob=" + problemJob +
+                ", date=" + date +
+                '}';
+    }
 }

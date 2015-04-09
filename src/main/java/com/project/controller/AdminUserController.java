@@ -89,6 +89,9 @@ public class AdminUserController {
             List<Complaint> activeCompliants = complaintService.getByAdminId(adminUser.getId(), ComplaintState.ACTIVE);
             List<Complaint> solvedCompliants = complaintService.getByAdminId(adminUser.getId(), ComplaintState.SOLVED);
 
+            for (Complaint c : activeCompliants) {
+                System.out.println(c);
+            }
             ModelAndView modelAndView = new ModelAndView("private/admin/profile");
             modelAndView.addObject("activeCompliants", activeCompliants);
             modelAndView.addObject("solvedCompliants", solvedCompliants);
